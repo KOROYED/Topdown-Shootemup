@@ -17,5 +17,9 @@ public class DestroyBulletOutOfBounds : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (transform.position.z < -11f)
+        {
+            Destroy(gameObject);
+        }
     }
 }
