@@ -8,7 +8,7 @@ public class EnemyScript : MonoBehaviour
     public GameObject bullet;
     public float fireRatep;
     public float fireRatem;
-    private float nextFire = 3.0f;
+    private float nextFire;
 
     void Start()
     {
@@ -18,13 +18,13 @@ public class EnemyScript : MonoBehaviour
 
     void Update()
     {
-        int fireinterval = Random.Range(20, 60);
+        int fireinterval = Random.Range(40, 60);
         if(Time.time > nextFire)
         {
             
             Instantiate(bullet, new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), bullet.transform.rotation);
             //nextFire = Time.time + Random.Range(fireRatep, fireRatem);
-            nextFire += fireinterval / 3;
+            nextFire += fireinterval / 2;
         }
     }
 
