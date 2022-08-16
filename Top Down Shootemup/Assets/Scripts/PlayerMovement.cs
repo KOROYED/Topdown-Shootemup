@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     public float xRange = 17.0f;
     public float zRange = 4.0f;
 
+    public float shootRate = 10f;
+    private float nextShot = 0.0f;
+
     public GameObject projectilePrefab;
 
     void Start()
@@ -55,8 +58,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Shoot()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextShot)
         {
+            nextShot = Time.time + shootRate;
             Instantiate(projectilePrefab, new Vector3(transform.position.x,transform.position.y,transform.position.z + 0.5f), projectilePrefab.transform.rotation);
         }
     }

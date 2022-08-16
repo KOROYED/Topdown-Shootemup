@@ -111,5 +111,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 2862335634493953768, guid: 9b3b591ebf19bc94f87007ab7441e87d, type: 3}
-  fireRatep: 5
-  fireRatem: 20
+  fireRatep: 2
+  fireRatem: 10
