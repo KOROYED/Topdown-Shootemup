@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-
+    private GameManager gameManager;
     public GameObject bullet;
     public float fireRatep;
     public float fireRatem;
@@ -12,6 +12,7 @@ public class EnemyScript : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         nextFire = Time.time + Random.Range(fireRatep, fireRatem);
     }
 
@@ -32,6 +33,7 @@ public class EnemyScript : MonoBehaviour
     {
         if (other.tag == "Bullet" && gameObject.tag == "Enemy")
         {
+            gameManager.AddScore(10);
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
