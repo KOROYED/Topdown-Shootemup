@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private GameManager gameManager;
+
+
     public float horizinralInput;
     public float verticalInput;
     public float speed = 5.0f;
@@ -17,15 +20,19 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
 
     void Update()
     {
         MovementBounds();
-        PlayerMove();
-        Shoot();
+        if(gameManager.isGameActive == true)
+        {
+            PlayerMove();
+            Shoot();
+        }
+        
     }
 
     void MovementBounds()

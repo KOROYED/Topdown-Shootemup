@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
-    
+    private GameManager gameManager;
     void Start()
     {
-        
+
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     
@@ -20,8 +21,9 @@ public class PlayerInteractions : MonoBehaviour
     {
         if (other.tag == "EnemyBullet" && gameObject.tag == "Player")
         {
+            gameManager.GameOver();
             Destroy(other.gameObject);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

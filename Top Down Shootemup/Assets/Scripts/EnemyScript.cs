@@ -19,6 +19,11 @@ public class EnemyScript : MonoBehaviour
 
     void Update()
     {
+        if (gameManager.isGameActive == false)
+        {
+            Destroy(gameObject);
+        }
+
         int fireinterval = Random.Range(40, 60);
         if(Time.time > nextFire)
         {

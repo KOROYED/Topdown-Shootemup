@@ -6,13 +6,15 @@ public class SpawnManager : MonoBehaviour
 {
 
     public GameObject enemyPrefab;
-    //private float xSpawnRange = 15f;
-    //private float zSpawnRange = 4f;
+
+    private GameManager gameManager;
+
     public int enemyCount;
     public int waveNumber = 1;
 
     void Start()
     {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         SpawnEnemyWave(waveNumber);
     }
 
@@ -20,10 +22,14 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         enemyCount = FindObjectsOfType<EnemyScript>().Length;
-        if(enemyCount == 0)
+        if(enemyCount == 0 && gameManager.isGameActive == true)
         {
             waveNumber++;
             SpawnEnemyWave(waveNumber);
+        }
+        if(gameManager.isGameActive == false)
+        {
+            waveNumber = 0;
         }
     }
 
