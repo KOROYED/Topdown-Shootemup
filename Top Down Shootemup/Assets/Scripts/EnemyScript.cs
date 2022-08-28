@@ -5,14 +5,18 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     private GameManager gameManager;
+    private SoundManager soundManager;
     public GameObject bullet;
     public float fireRatep;
     public float fireRatem;
     private float nextFire;
 
+
+
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
         nextFire = Time.time + Random.Range(fireRatep, fireRatem);
     }
 
@@ -27,7 +31,7 @@ public class EnemyScript : MonoBehaviour
         int fireinterval = Random.Range(40, 60);
         if(Time.time > nextFire)
         {
-            
+            soundManager.OnEnemyShoot();
             Instantiate(bullet, new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), bullet.transform.rotation);
             //nextFire = Time.time + Random.Range(fireRatep, fireRatem);
             nextFire += fireinterval / 2;
@@ -38,6 +42,7 @@ public class EnemyScript : MonoBehaviour
     {
         if (other.tag == "Bullet" && gameObject.tag == "Enemy")
         {
+            soundManager.OnEnemyDeath();
             gameManager.AddScore(10);
             Destroy(other.gameObject);
             Destroy(gameObject);

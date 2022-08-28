@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private SoundManager soundManager;
+
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI gameOverText;
@@ -21,11 +23,12 @@ public class GameManager : MonoBehaviour
 
     public float timeRemaining;
     public bool isGameActive;
-    private int score;
+    public int score;
 
     void Start()
     {
         highScoreTextT.text = "High Score:     " + PlayerPrefs.GetInt("HighScore", 0).ToString();
+        soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
     }
 
 
@@ -67,7 +70,16 @@ public class GameManager : MonoBehaviour
             else
             {
                 timeRemaining = 0;
+                if (score > PlayerPrefs.GetInt("HighScore", 0))
+                {
+                    soundManager.OnHighScore();
+                }
+                else
+                {
+                    soundManager.OnTimeEnd();
+                }
                 GameOver();
+                
             }
         }
     }

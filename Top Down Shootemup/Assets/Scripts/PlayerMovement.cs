@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private GameManager gameManager;
+    private SoundManager soundManager;
 
 
     public float horizinralInput;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
     }
 
 
@@ -68,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextShot)
         {
             nextShot = Time.time + shootRate;
+            soundManager.OnPlayerShoot();
             Instantiate(projectilePrefab, new Vector3(transform.position.x,transform.position.y,transform.position.z + 0.5f), projectilePrefab.transform.rotation);
         }
     }
