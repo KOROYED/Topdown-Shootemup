@@ -17,11 +17,11 @@ public class DestroyBulletOutOfBounds : MonoBehaviour
         if(transform.position.z > 11.5f)
         {
             gameManager.AddScore(-10);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         if (transform.position.z < -11f)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

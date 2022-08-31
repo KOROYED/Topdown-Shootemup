@@ -70,8 +70,17 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextShot)
         {
             nextShot = Time.time + shootRate;
-            soundManager.OnPlayerShoot();
-            Instantiate(projectilePrefab, new Vector3(transform.position.x,transform.position.y,transform.position.z + 0.5f), projectilePrefab.transform.rotation);
+            GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObjects(0);
+            if(pooledProjectile != null)
+            {
+                soundManager.OnPlayerShoot();
+                pooledProjectile.SetActive(true);
+                pooledProjectile.transform.position = transform.position;
+            }
+            
+            
+            
+            //Instantiate(projectilePrefab, new Vector3(transform.position.x,transform.position.y,transform.position.z + 0.5f), projectilePrefab.transform.rotation);
         }
     }
 }

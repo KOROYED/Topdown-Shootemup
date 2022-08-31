@@ -31,10 +31,17 @@ public class EnemyScript : MonoBehaviour
         int fireinterval = Random.Range(40, 60);
         if(Time.time > nextFire)
         {
-            soundManager.OnEnemyShoot();
-            Instantiate(bullet, new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), bullet.transform.rotation);
-            //nextFire = Time.time + Random.Range(fireRatep, fireRatem);
-            nextFire += fireinterval / 2;
+            GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObjects(1);
+            if (pooledProjectile != null)
+            {
+                soundManager.OnEnemyShoot();
+                pooledProjectile.SetActive(true);
+                pooledProjectile.transform.position = transform.position;
+                //Instantiate(bullet, new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), bullet.transform.rotation);
+                //nextFire = Time.time + Random.Range(fireRatep, fireRatem);
+                nextFire += fireinterval / 2;
+            }
+            
         }
     }
 
@@ -44,7 +51,7 @@ public class EnemyScript : MonoBehaviour
         {
             soundManager.OnEnemyDeath();
             gameManager.AddScore(10);
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
             Destroy(gameObject);
         }
     }

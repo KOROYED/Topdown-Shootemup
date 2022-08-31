@@ -22,7 +22,7 @@ public class PlayerInteractions : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "EnemyBullet" && gameObject.tag == "Player")
+        if (gameObject.CompareTag("EnemyBullet"))
         {
             if(gameManager.score > PlayerPrefs.GetInt("HighScore", 0))
             {
@@ -33,7 +33,7 @@ public class PlayerInteractions : MonoBehaviour
                 soundManager.OnPlayerDeath();
             }
             gameManager.GameOver();
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
             gameObject.SetActive(false);
         }
     }
